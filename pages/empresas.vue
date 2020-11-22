@@ -363,9 +363,44 @@ export default {
       setFlexibleResults: "global/setFlexibleResults",
     }),
     filterData(context) {
-      this.filtered = this.companies.filter((company) =>
-        company.matchesFilter(context, this.baseTabs, this.reverseCNAEmap)
-      );
+      this.filtered = this.companies.filter((company) => {
+        // company.matchesFilter(context, this.baseTabs, this.reverseCNAEmap)
+        const { primary, secondary, terciary } = context;
+        let primaryMatch, secondaryMatch, terciaryMatch;
+
+        if (primary.length == 0) {
+          primaryMatch = true;
+        } else {
+          primaryMatch = primary
+            .reduce((codes, p) => {
+              return codes.concat(this.baseTabs.find(({ name }) => name === p).CNAECodes);
+            }, [])
+            .includes(company.category.code);
+        }
+
+        if (secondary.length == 0) {
+          secondaryMatch = true;
+        } else {
+          secondaryMatch = secondary
+            .reduce((codes, s) => codes.concat(this.reverseCNAEmap[s]), [])
+            .includes(company.category.code);
+        }
+
+        const city = terciary[0];
+        const incubator = terciary[1];
+
+        terciaryMatch = true;
+
+        if (city) {
+          terciaryMatch = company.address.city.includes(city);
+        }
+
+        if (incubator) {
+          terciaryMatch = terciaryMatch && company.ecosystems.includes(incubator);
+        }
+
+        return primaryMatch && secondaryMatch && terciaryMatch;
+      });
     },
     async fuzzySearch() {
       this.setStrictResults();

@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  solus:
+    build:
+      context: .
+      target: production
+    ports:
+      - 3000:80
+

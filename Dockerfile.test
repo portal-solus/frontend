@@ -1,0 +1,11 @@
+############
+# TEST IMAGE
+############
+
+FROM cypress/included:3.4.0
+
+WORKDIR /usr/src/app
+
+COPY cypress.json ./
+
+COPY ./test ./test

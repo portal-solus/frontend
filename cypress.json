@@ -1,0 +1,9 @@
+{
+  "baseUrl": "http://solus:3000",
+  "fixturesFolder": "test/fixtures",
+  "integrationFolder": "test/features",
+  "pluginsFile": false,
+  "screenshotsFolder": "test/screenshots",
+  "supportFile": false,
+  "videosFolder": "test/videos"
+}

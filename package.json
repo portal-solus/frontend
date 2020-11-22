@@ -1,0 +1,41 @@
+{
+  "name": "Solus",
+  "version": "1.0.0",
+  "description": "Aqui você encontra as mais diversas informações sobre empreendedorismo e inovação na Universidade de São Paulo",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue .",
+    "lintfix": "eslint --fix --ext .js,.vue .",
+    "test:open": "cypress open",
+    "test": "cypress run"
+  },
+  "dependencies": {
+    "@nuxtjs/vuetify": "^1.11.2",
+    "axios": "^0.19.2",
+    "debounce": "^1.2.0",
+    "fibers": "^4.0.3",
+    "node-sass": "^4.14.1",
+    "nuxt": "^2.13.3",
+    "vue-fuse": "^2.2.1",
+    "vue-masonry-css": "^1.0.3",
+    "vue-typer": "^1.2.0"
+  },
+  "devDependencies": {
+    "aos": "^3.0.0-beta.6",
+    "babel-eslint": "^10.1.0",
+    "cypress": "^5.5.0",
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-cypress": "^2.11.2",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-vue": "^6.2.2",
+    "prettier": "^2.0.5",
+    "sass-loader": "^8.0.0"
+  }
+}

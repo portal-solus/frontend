@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    volumes:
+      - /usr/src/app/node_modules
+      - ./:/usr/src/app
+

@@ -1,4 +1,4 @@
-export const columnValue = (row, colLetter) => {
+const columnValue = (row, colLetter) => {
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
   const map = letters
     .concat(...letters.map((l) => `A${l}`))
@@ -6,3 +6,7 @@ export const columnValue = (row, colLetter) => {
 
   return row[map.findIndex((x) => x === colLetter)];
 };
+
+export default ({ app }, inject) => {
+  inject('columnValue', columnValue)
+}

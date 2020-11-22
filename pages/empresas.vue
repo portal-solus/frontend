@@ -61,8 +61,6 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { genFuzzyOptions } from "@/lib/search";
-import { removeAccent } from "@/lib/format"
 
 import Background from "@/components/first_level/Background.vue";
 import USPDNA from "@/components/first_level/USPDNA.vue";
@@ -70,8 +68,6 @@ import Panel from "@/components/first_level/Panel.vue";
 import MultipleFilters from "@/components/first_level/MultipleFilters.vue";
 import DisplayData from "@/components/first_level/DisplayData.vue";
 import BulletList from "@/components/first_level/BulletList.vue";
-
-import { Company } from "@/lib/classes/company";
 
 export default {
   components: {
@@ -299,6 +295,7 @@ export default {
       companies: "empresas/companies",
       searchKeys: "empresas/searchKeys",
       cities: "empresas/cities",
+      incubators: "empresas/incubators"
     }),
     searchTerm() {
       return this.search.term;
@@ -341,7 +338,7 @@ export default {
     groups() {
       return [
         { label: "Cidade", items: this.cities },
-        { label: "Incubadora?", items: Company.incubators },
+        { label: "Incubadora?", items: this.incubators },
       ];
     },
     globalSearchSelected() {
@@ -378,12 +375,12 @@ export default {
         return;
       }
 
-      const term = removeAccent(this.search.term.trim());
+      const term = this.$removeAccent(this.search.term.trim());
 
       let results = await this.$search(
         term,
         this.baseItems,
-        genFuzzyOptions(this.searchKeys, 0.0)
+        this.$genFuzzyOptions(this.searchKeys, 0.0)
       );
 
       if (results.length === 0) {

@@ -1,4 +1,4 @@
-export const genFuzzyOptions = (keys, threshold = 0.15) => ({
+const genFuzzyOptions = (keys, threshold = 0.15) => ({
   ignoreLocation: true,
   findAllMatches: true,
   shouldSort: true,
@@ -9,3 +9,7 @@ export const genFuzzyOptions = (keys, threshold = 0.15) => ({
   threshold,
   keys,
 });
+
+export default ({ app }, inject) => {
+  inject('genFuzzyOptions', genFuzzyOptions)
+}

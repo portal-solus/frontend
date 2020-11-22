@@ -43,6 +43,10 @@ export default {
     { src: "~/plugins/vue-fuse.js", mode: "client" },
     { src: "~/plugins/vue-masonry.js", mode: "client" },
     { src: "~/plugins/vue-typer.js", mode: "client" },
+    { src: "~/plugins/campi.js", mode: "client" },
+    { src: "~/plugins/format.js", mode: "client" },
+    { src: "~/plugins/search.js", mode: "client" },
+    { src: "~/plugins/sheets.js", mode: "client" },
   ],
 
   /*

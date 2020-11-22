@@ -109,8 +109,13 @@ const campi = [
   }
 ];
 
-export default campi
+const allCampi = campi
   .map(c => {
     return { name: c.name, unities: c.unities.sort() }
   })
   .sort((a, b) => a.name == b.name ? 0 : a.name < b.name ? -1 : 1);
+
+export default ({ app }, inject) => {
+  inject('allCampi', () => allCampi);
+};
+

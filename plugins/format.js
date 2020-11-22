@@ -1,8 +1,8 @@
-export const formatURL = (raw) =>
+const formatURL = (raw) =>
   raw.substr(0, 4) == "http" ? raw : `http://${raw}`;
 
 const tokenSeparator = " ";
-export const capitalizeName = (raw) =>
+const capitalizeName = (raw) =>
   raw
     .toLocaleLowerCase()
     .trim()
@@ -15,7 +15,7 @@ export const capitalizeName = (raw) =>
     })
     .join(tokenSeparator);
 
-export const fixPersonName = (name) =>
+const fixPersonName = (name) =>
   name.includes(",") ? name.split(",").reverse().join(" ") : name;
 
 const eightDigits = (numbers) => {
@@ -46,7 +46,7 @@ const dddNineDigits = (numbers) => {
   return `(${ddd}) ${nineDigits(number)}`;
 };
 
-export const formatPhone = (raw) => {
+const formatPhone = (raw) => {
   if (!raw) return "";
 
   const numbers = raw.replace(/\D/g, "");
@@ -65,7 +65,7 @@ export const formatPhone = (raw) => {
   }
 };
 
-export const removeAccent = (rawStr) => {
+const removeAccent = (rawStr) => {
   let str = `${rawStr}`
   const variations = {};
 
@@ -82,4 +82,11 @@ export const removeAccent = (rawStr) => {
   });
 
   return str;
+}
+
+export default ({ app }, inject) => {
+  inject('formatURL', formatURL)
+  inject('fixPersonName', fixPersonName)
+  inject('formatPhone', formatPhone)
+  inject('removeAccent', removeAccent)
 }

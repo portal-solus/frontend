@@ -1,17 +1,29 @@
-import { Company, CompanyGenerator } from "@/lib/classes/company";
-
 export const state = () => ({
   companies: [],
-  isLoading: false,
-  errors: undefined,
-  keys: Company.keys,
+  keys: [
+    "inspect.name",
+    "inspect.descriptionLong",
+    "inspect.services",
+    "inspect.technologies",
+  ],
+  incubators: [
+    "Direto para o Mercado",
+    "CIETEC – Centro de Inovação, Empreendedorismo e Tecnologia",
+    "ESALQTec – Incubadora de Empresas Agrozootécnicas de Piracicaba",
+    "HABITs – Habitat de Inovação Tecnológica e Social/Incubadora-Escola",
+    "INOVA-HC",
+    "InovaLab@POLI",
+    "ParqTec – Fundação Parque Tecnológico de São Carlos",
+    "Parque Tecnológico Univap",
+    "Pqtec – Parque Tecnológico São José dos Campos",
+    "Supera – Incubadora de Empresas de Base Tecnológica de Ribeirão Preto",
+  ]
 });
 
 export const getters = {
-  dataStatus: (s) => (s.isLoading ? "loading" : "ok"),
   companies: (s) => s.companies,
   searchKeys: (s) => s.keys,
-  errors: (s) => s.errors,
+  incubators: (s) => s.incubators,
   cities: (s) => {
     const cities = s.companies.reduce((all, company) => {
       return all.concat(company.city);
@@ -34,40 +46,5 @@ export const getters = {
 };
 
 export const mutations = {
-  setLoadingStatus: (s) => (s.isLoading = true),
-  unsetLoadingStatus: (s) => (s.isLoading = false),
-  setCompanies: (s, newCompanies) => (s.companies = newCompanies),
-  setErrors: (s, errors) => s.errors = errors,
-};
-
-export const actions = {
-  fetchSpreadsheets: async (ctx, env) => {
-    const { sheetsAPIKey } = env;
-    const sheetID = "14uwSMZee-CoIJyIpcEf4t17z6eYN-ElYgw_O7dtU5Ok";
-    const sheetName = "EMPRESAS";
-
-    ctx.commit("setLoadingStatus");
-
-    try {
-      const resp = await fetch(
-        `https://sheets.googleapis.com/v4/spreadsheets/${sheetID}/values/'${sheetName}'?key=${sheetsAPIKey}`
-      );
-
-      const data = await resp.json();
-
-      const objects = data.values.slice(1).map((row) => CompanyGenerator.run(row));
-
-      ctx.commit(
-        "setCompanies",
-        objects
-          .filter((c) => c.allowed && c.active)
-          .sort((a, b) => a.name.localeCompare(b.name))
-      );
-    } catch (error) {
-      console.log("error occuried while fetching...");
-      console.log(error);
-    }
-
-    ctx.commit("unsetLoadingStatus");
-  },
+  setCompanies: (s, newCompanies) => (s.companies = newCompanies)
 };
